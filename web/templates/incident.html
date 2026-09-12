@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        SOCMate | Incident Investigation
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}"
+    >
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+    <!-- HEADER -->
+
+    <div class="header">
+
+        <h1>🧠 SOCMate</h1>
+
+        <p>
+            Security Operations Center
+            &nbsp;•&nbsp;
+            Incident Investigation
+        </p>
+
+    </div>
+
+
+    <!-- BACK BUTTON -->
+
+    <div class="section">
+
+        <a href="/">
+
+            <button type="button">
+                ← Back to Dashboard
+            </button>
+
+        </a>
+
+    </div>
+
+
+    <!-- INCIDENT HEADER -->
+
+    <div class="section incident-hero">
+
+        <div>
+
+            <div class="incident-label">
+                SECURITY INCIDENT
+            </div>
+
+            <h2>
+                {{ incident["threat_type"] }}
+            </h2>
+
+            <p class="incident-id">
+                Incident ID #{{ incident["id"] }}
+            </p>
+
+        </div>
+
+
+        <div class="risk-badge">
+
+            {{ incident["risk_level"] }}
+
+        </div>
+
+    </div>
+
+
+    <!-- INCIDENT DETAILS -->
+
+    <div class="section">
+
+        <h2>🔎 Incident Details</h2>
+
+        <br>
+
+
+        <div class="incident-details">
+
+
+            <div class="detail-box">
+
+                <h3>
+                    Threat Type
+                </h3>
+
+                <p>
+                    {{ incident["threat_type"] }}
+                </p>
+
+            </div>
+
+
+            <div class="detail-box">
+
+                <h3>
+                    Risk Score
+                </h3>
+
+                <p>
+                    {{ incident["risk_score"] }}/10
+                </p>
+
+            </div>
+
+
+            <div class="detail-box">
+
+                <h3>
+                    Username
+                </h3>
+
+                <p>
+                    {{ incident["username"] }}
+                </p>
+
+            </div>
+
+
+            <div class="detail-box">
+
+                <h3>
+                    IP Address
+                </h3>
+
+                <p>
+                    {{ incident["ip_address"] }}
+                </p>
+
+            </div>
+
+
+            <div class="detail-box">
+
+                <h3>
+                    Timestamp
+                </h3>
+
+                <p>
+                    {{ incident["timestamp"] }}
+                </p>
+
+            </div>
+
+
+            <div class="detail-box">
+
+                <h3>
+                    Current Status
+                </h3>
+
+                <p>
+                    {{ incident["status"] }}
+                </p>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+    <!-- DESCRIPTION -->
+
+    <div class="section">
+
+        <h2>📋 Detection Summary</h2>
+
+        <br>
+
+        <div class="description-box">
+
+            {{ incident["description"] }}
+
+        </div>
+
+    </div>
+
+
+    <!-- ANALYST ASSESSMENT -->
+
+    <div class="section">
+
+        <h2>🛡️ Analyst Assessment</h2>
+
+        <br>
+
+
+        {% if incident["risk_level"] == "CRITICAL" %}
+
+        <div class="assessment critical">
+
+            <strong>
+                🚨 CRITICAL RISK
+            </strong>
+
+            <p>
+                Immediate investigation is recommended.
+                Review the affected account, source IP,
+                and related security events.
+            </p>
+
+        </div>
+
+
+        {% elif incident["risk_level"] == "HIGH" %}
+
+        <div class="assessment high">
+
+            <strong>
+                ⚠️ HIGH RISK
+            </strong>
+
+            <p>
+                Investigate the suspicious activity
+                and review related authentication logs.
+            </p>
+
+        </div>
+
+
+        {% elif incident["risk_level"] == "MEDIUM" %}
+
+        <div class="assessment medium">
+
+            <strong>
+                🟡 MEDIUM RISK
+            </strong>
+
+            <p>
+                Review the event and monitor the related
+                user and IP activity for additional
+                suspicious behavior.
+            </p>
+
+        </div>
+
+
+        {% else %}
+
+        <div class="assessment low">
+
+            <strong>
+                🟢 LOW RISK
+            </strong>
+
+            <p>
+                No immediate action is required.
+                Continue normal monitoring.
+            </p>
+
+        </div>
+
+        {% endif %}
+
+    </div>
+
+
+    <!-- STATUS WORKFLOW -->
+
+    <div class="section">
+
+        <h2>🔄 Incident Response</h2>
+
+        <br>
+
+
+        <p class="status-text">
+
+            Current Status:
+
+            <strong>
+                {{ incident["status"] }}
+            </strong>
+
+        </p>
+
+
+        <br>
+
+
+        <form
+            method="POST"
+            action="{{ url_for(
+                'update_status',
+                incident_id=incident['id']
+            ) }}"
+            class="status-form"
+        >
+
+            <label>
+                Update Status
+            </label>
+
+
+            <select name="status">
+
+                <option value="NEW"
+                    {% if incident["status"] == "NEW" %}
+                    selected
+                    {% endif %}
+                >
+                    NEW
+                </option>
+
+
+                <option value="INVESTIGATING"
+                    {% if incident["status"] == "INVESTIGATING" %}
+                    selected
+                    {% endif %}
+                >
+                    INVESTIGATING
+                </option>
+
+
+                <option value="RESOLVED"
+                    {% if incident["status"] == "RESOLVED" %}
+                    selected
+                    {% endif %}
+                >
+                    RESOLVED
+                </option>
+
+            </select>
+
+
+            <button type="submit">
+
+                Update Incident
+
+            </button>
+
+        </form>
+
+    </div>
+
+
+    <!-- FOOTER -->
+
+    <div class="section incident-footer">
+
+        <p>
+            🧠 SOCMate Detection Engine
+        </p>
+
+        <span>
+            Incident #{{ incident["id"] }}
+        </span>
+
+    </div>
+
+
+</div>
+
+
+</body>
+
+</html>

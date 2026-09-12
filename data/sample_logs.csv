@@ -1,0 +1,20 @@
+timestamp,event_type,username,ip_address,status,details
+2026-09-06 09:01:12,LOGIN,snehal,192.168.1.10,SUCCESS,User logged in successfully
+2026-09-06 09:03:45,LOGIN,admin,192.168.1.25,FAILED,Invalid password
+2026-09-06 09:03:51,LOGIN,admin,192.168.1.25,FAILED,Invalid password
+2026-09-06 09:03:58,LOGIN,admin,192.168.1.25,FAILED,Invalid password
+2026-09-06 09:04:05,LOGIN,admin,192.168.1.25,FAILED,Invalid password
+2026-09-06 09:04:11,LOGIN,admin,192.168.1.25,FAILED,Invalid password
+2026-09-06 09:04:18,LOGIN,admin,192.168.1.25,FAILED,Invalid password
+2026-09-06 09:05:02,LOGIN,snehal,192.168.1.10,SUCCESS,User logged in successfully
+2026-09-06 09:10:22,FILE_ACCESS,snehal,192.168.1.10,SUCCESS,Accessed project folder
+2026-09-06 09:15:37,LOGIN,rahul,192.168.1.30,FAILED,Invalid password
+2026-09-06 09:16:02,LOGIN,rahul,192.168.1.30,SUCCESS,User logged in successfully
+2026-09-06 09:20:11,FILE_ACCESS,admin,192.168.1.25,SUCCESS,Accessed restricted folder
+2026-09-06 09:25:44,PRIVILEGE_CHANGE,admin,192.168.1.25,SUCCESS,User privilege changed
+2026-09-06 09:30:21,LOGIN,guest,192.168.1.40,FAILED,Invalid password
+2026-09-06 09:31:08,LOGIN,guest,192.168.1.40,FAILED,Invalid password
+2026-09-06 09:32:17,LOGIN,guest,192.168.1.40,FAILED,Invalid password
+2026-09-06 09:33:45,LOGIN,guest,192.168.1.40,FAILED,Invalid password
+2026-09-06 09:34:12,LOGIN,guest,192.168.1.40,FAILED,Invalid password
+2026-09-06 09:40:22,LOGOUT,snehal,192.168.1.10,SUCCESS,User logged out
